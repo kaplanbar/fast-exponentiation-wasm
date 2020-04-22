@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> WebAssembly Fast Exponentiation </title>
+	</head>
+
+	<body>
+		<script>
+			function fastExponentiation() {
+				var number1 = document.getElementById("number1").value;
+				var number2 = document.getElementById("number2").value;
+				fetch('./fastexponentiation.wasm').then(response =>
+				response.arrayBuffer())	
+				.then(bytes => WebAssembly.instantiate(bytes))
+					.then(result => {
+						document.getElementById("result").innerHTML = result.instance.exports.power(parseInt(number1,10), parseInt(number2,10))}
+					);
+			}
+		</script>
+		<input id="number1" type="number"> First number</input>
+		<br>
+		<input id="number2"  type="number"> Second number</input>
+		<br>
+		<button onClick="fastExponentiation();">Calculate</button>
+		<div>
+			<p>Result: <span id="result"></span> </p>
+		</div>
+	</body>
+</html>
