@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
 		<title> WebAssembly Fast Exponentiation </title>
@@ -11,32 +12,45 @@
 				var number1 = document.getElementById("number1").value;
 				var number2 = document.getElementById("number2").value;
 				fetch('./fastexponentiation.wasm').then(response =>
-				response.arrayBuffer())	
-				.then(bytes => WebAssembly.instantiate(bytes))
+					response.arrayBuffer())
+					.then(bytes => WebAssembly.instantiate(bytes))
 					.then(result => {
-						document.getElementById("result").innerHTML = result.instance.exports.power(parseInt(number1,10), parseInt(number2,10))}
+						document.getElementById("result").innerHTML = Math.abs(result.instance.exports.power(parseInt(number1, 10), parseInt(number2, 10))).toLocaleString()
+					}
 					);
 			}
 		</script>
 		<!-- Fast, 32bit output -->
-		<input id="number1" type="number"> First number</input>
+		<input oninput="fastExponentiation();" id="number1" type="number" min="1" value="1"> Base</input>
 		<br>
-		<input id="number2"  type="number"> Second number</input>
+		<input oninput="fastExponentiation();" id="number2" type="number" min="1" value="1"> Exponent</input>
 		<br>
 		<button onClick="fastExponentiation();">Calculate</button>
 		<div>
-			<p>Fast 32bit Result: <span id="result"></span> </p>
+			<p>Fast (bitwise) 32bit Power: <span id="result"></span> </p>
 		</div>
 		<!-- Naive, 64bit output -->
 		<script type="module" src="powerNaive.js"></script>
-		<hr> 
-		<input id="number1_naive" type="number"> First number</input>
+		<hr>
+		<input oninput="naiveExponentiation();" id="number1_naive" type="number" min="1" value="1"> Base</input>
 		<br>
-		<input id="number2_naive"  type="number"> Second number</input>
+		<input oninput="naiveExponentiation();" id="number2_naive" type="number" min="1" value="1"> Exponent</input>
 		<br>
 		<button onClick="naiveExponentiation();">Calculate</button>
 		<div>
-			<p>Naive 64bit Result: <span id="result_naive"></span></p>
+			<p>Naive (slow) 64bit Power: <span id="result_naive"></span></p>
+		</div>
+		<!-- Fast, 64bit output -->
+		<script type="module" src="powerFast64bit.js"></script>
+		<hr>
+		<input oninput="powerFast64bit();" id="number1_fast" type="number" min="1" value="1"> Base</input>
+		<br>
+		<input oninput="powerFast64bit();" id="number2_fast" type="number" min="1" value="1"> Exponent</input>
+		<br>
+		<button onClick="powerFast64bit();">Calculate</button>
+		<div>
+			<p>Fast (bitwise) 64bit Power: <span id="result_fast"></span></p>
 		</div>
 	</body>
+
 </html>
