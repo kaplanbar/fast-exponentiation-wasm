@@ -18,13 +18,25 @@
 					);
 			}
 		</script>
+		<!-- Fast, 32bit output -->
 		<input id="number1" type="number"> First number</input>
 		<br>
 		<input id="number2"  type="number"> Second number</input>
 		<br>
 		<button onClick="fastExponentiation();">Calculate</button>
 		<div>
-			<p>Result: <span id="result"></span> </p>
+			<p>Fast 32bit Result: <span id="result"></span> </p>
+		</div>
+		<!-- Naive, 64bit output -->
+		<script type="module" src="powerNaive.js"></script>
+		<hr> 
+		<input id="number1_naive" type="number"> First number</input>
+		<br>
+		<input id="number2_naive"  type="number"> Second number</input>
+		<br>
+		<button onClick="naiveExponentiation();">Calculate</button>
+		<div>
+			<p>Naive 64bit Result: <span id="result_naive"></span></p>
 		</div>
 	</body>
 </html>
